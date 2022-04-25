@@ -1,7 +1,25 @@
 <h1>User Manage page</h1>
 
 <div>
-<h2>Welcome {{currentUser.displayName}}</h2>
-<a href="/edit/{{currentUser._id}}">Edit Profile</a>
-
+  <h2>Welcome, {{currentUser.displayName}}</h2>
+  <a href="/edit/{{currentUser._id}}">Edit Profile</a>
 </div>
+
+<br>
+
+<div>
+  <a href="/pantry/create">Create a Pantry</a>
+</div>
+
+{{#if pantry}}
+<div class="container">
+  <div class="row">
+    {{#each pantry}}
+      {{> pantryCard this}}
+    {{/each}}
+  </div>
+</div>
+{{else}}
+<p>No pantries found, please create one to continue...</p>
+{{/if}}
+

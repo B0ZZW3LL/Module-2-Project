@@ -1,0 +1,21 @@
+<h1>Pantry Creation</h1>
+
+<div id="form">
+
+  <h2>Create a Pantry</h2>
+
+  <form action="/pantry/create" method="POST">
+  <div>
+    <label for="pantryName">Pantry Name: </label>
+    <input id="pantryName" type="text" name="name" placeholder="Name your pantry" >
+  </div>
+
+  <button type="submit">Submit</button>
+
+   {{#if errorMessage}}
+    <p class="error">{{errorMessage}}</p>
+  {{/if}}
+
+  </form>
+  
+</div>

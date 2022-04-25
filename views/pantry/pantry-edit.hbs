@@ -1,0 +1,17 @@
+<h1>Edit Pantry Name</h1>
+
+<div id="form">
+
+  <h2>Change Pantry Name</h2>
+
+  <form action="/pantry/edit/{{pantryFound.id}}" method="POST">
+  <div>
+    <label for="pantryName">Pantry Name: </label>
+    <input id="pantryName" type="text" name="name" value="{{pantryFound.name}}" >
+  </div>
+
+  <button type="submit">Submit</button>
+
+  </form>
+  
+</div>

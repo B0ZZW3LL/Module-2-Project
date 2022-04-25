@@ -6,7 +6,6 @@ const userSchema = new Schema(
       type: String,
       trim: true,
       required: [true, 'Display name is required.'],
-      unique: false,
     },
     email: {
       type: String,

@@ -1,13 +1,20 @@
 const router = require("express").Router();
-const User = require('../models/User.model');
 const bcryptjs = require('bcryptjs');
 const mongoose = require('mongoose');
+
+const User = require('../models/User.model');
+const Pantry = require('../models/Pantry.model');
 
 
 //****** RENDER USER MANAGE VIEW ******//
 router.get('/manage', (req, res, next) => {
-  console.log(req.session)
-  res.render('user/user-manage', { currentUser: req.session.currentUser})
+  let currentUser = req.session.currentUser
+  
+  Pantry.find({owner: currentUser._id})
+  .then(pantriesFound => {
+    res.render('user/user-manage', { currentUser, pantry:pantriesFound })
+  })
+  .catch(err => console.log(err))
 })
 
 
