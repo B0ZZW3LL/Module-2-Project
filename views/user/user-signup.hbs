@@ -1,0 +1,36 @@
+<h1>User Signup</h1>
+
+<div id="form">
+
+  <h2>Signup</h2>
+
+  <form action="/signup" method="POST">
+  <div>
+    <label for="displayName">Display Name: </label>
+    <input id="displayName" type="text" name="displayName" placeholder="JohnDoe2022" >
+  </div>
+
+  <div>
+    <label for="email">Email: </label>
+    <input id="email" type="text" name="email" placeholder="Your email here">
+  </div>
+
+   <div>
+    <label for="password">Password: </label>
+    <input id="password" type="password" name="password" placeholder="password">
+  </div>
+
+   <div>
+    <label for="confirm-password">Confirm Password: </label>
+    <input id="confirm-password" type="password" name="confirmPassword" placeholder="Confirm password">
+  </div>
+
+  <button type="submit">Submit</button>
+
+   {{#if errorMessage}}
+    <p class="error">{{errorMessage}}</p>
+  {{/if}}
+
+  </form>
+  
+</div>

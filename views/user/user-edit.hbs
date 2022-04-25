@@ -1,0 +1,26 @@
+<h1>User Edit Form</h1>
+
+<div id="form">
+
+  <h2>Edit Profile</h2>
+
+  <form action="/edit/{{user._id}}" method="POST">
+  <div>
+    <label for="displayName">Display Name: </label>
+    <input id="displayName" type="text" name="displayName" value="{{user.displayName}}" >
+  </div>
+
+  {{!-- <div>
+    <label for="email">Email: </label>
+    <input id="email" type="text" name="email" value="{{user.email}}">
+  </div> --}}
+
+  <button type="submit">Submit</button>
+
+   {{#if errorMessage}}
+    <p class="error">{{errorMessage}}</p>
+  {{/if}}
+
+  </form>
+  
+</div>
