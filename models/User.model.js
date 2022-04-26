@@ -18,7 +18,8 @@ const userSchema = new Schema(
     password: {
       type: String,
       required: [true, 'Password is required.']
-    }
+    },
+    pantries: [{ type: Schema.Types.ObjectId, ref: "Pantry" }]
   },
   {
     timestamps: true

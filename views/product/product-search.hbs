@@ -1,0 +1,23 @@
+<h1>Product Search Page</h1>
+
+<a href="/product-list">Show All Products</a>
+
+<form action="/product-search-upc" method="POST">
+<input type="text" name="upcNumber" placeholder="UPC Code" >
+<button type="Submit">Search UPC</button>
+</form>
+
+<form action="/product-search-title" method="POST">
+<input type="text" name="title" placeholder="Product Name" >
+<button type="Submit">Search Name</button>
+</form>
+
+{{#if products}}
+<div class="container">
+  <div class="row">
+    {{#each products}}
+      {{> productCard this}}
+    {{/each}}
+  </div>
+</div>
+{{/if}}

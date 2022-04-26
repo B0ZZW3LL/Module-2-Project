@@ -22,7 +22,8 @@ app.use("/", userRouter)
 const pantryRouter = require("./routes/pantry.routes");
 app.use("/", pantryRouter)
 
-
+const productRouter = require("./routes/product.routes");
+app.use("/", productRouter)
 
 
 require("./error-handling")(app);

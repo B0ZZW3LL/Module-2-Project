@@ -5,7 +5,7 @@ router.get("/", (req, res, next) => {
   if (req.session.currentUser) {
     res.redirect('/manage')
   } else {
-    res.render("index")
+    res.render('index')
   }
 });
 

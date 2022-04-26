@@ -25,6 +25,18 @@ router.get('/pantry/edit/:id' , (req, res, next) => {
 })
 
 
+//****** RENDER MANAGE PANTRY VIEW ******//
+router.get('/pantry/manage/:id' , (req, res, next) => {
+  pantryId = req.params.id
+
+  Pantry.findById(pantryId)
+  .then(pantryFound => {
+    res.render('pantry/pantry-manage', { pantryFound })
+  })
+  .catch(err => console.log(err))
+})
+
+
 //****** HANDLE PANTRY NAME CHANGE ******//
 router.post('/pantry/edit/:id' , (req, res, next) => {
   pantryId = req.params.id
@@ -38,7 +50,7 @@ router.post('/pantry/edit/:id' , (req, res, next) => {
 })
 
 
-//****** HANDLE PANTRY CREATION  ******//
+//****** HANDLE PANTRY CREATION THEN APPEND CREATED PANTRY TO USER  ******//
 router.post('/pantry/create' , (req, res, next) => {
   const {name} = req.body
   let owner = (req.session.currentUser._id)
@@ -46,8 +58,9 @@ router.post('/pantry/create' , (req, res, next) => {
   Pantry.create( {owner: owner, name} )
   .then(pantryCreated => {
     console.log(`${pantryCreated.name} has been created.`)
-    res.redirect('/manage'); 
+    return User.findByIdAndUpdate(owner, { $push: { pantries: pantryCreated._id}})
   })
+  .then(() => res.redirect('/manage'))
   .catch(err => console.log(err))
 })
 

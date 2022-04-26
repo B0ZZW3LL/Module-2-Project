@@ -1,3 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif
+}
+
 body {
   padding: 0;
   margin: 0;
@@ -17,8 +26,7 @@ form label {
   width: 100%;
 }
 
-form input,
-form button {
+form input, form button {
   box-sizing: border-box;
   font-size: 14px;
   outline: 0;
@@ -109,3 +117,16 @@ ul li {
 #logout-form button {
   width: 120px;
 }
+
+
+
+.card {
+  min-height: 450px;
+  max-height: 450px;
+}
+
+.card-img-top {
+  max-width: 200px;
+  max-height: 253px;
+}
+
