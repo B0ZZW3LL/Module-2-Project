@@ -6,7 +6,18 @@
 
       <p class="card-text"><b>{{this.title}}</b></p>
       <p class="card-text">{{this.brand}}</p>
-      <p class="card-text">{{this.qty}}</p>
+
+      <form id="qty-form" action="/pantry/product/qty" method="POST">
+        <div class="value-button" id="decrease" onclick="decreaseProductQty()" value="Decrease Value">-</div>
+        <input type="text" name="productId" value="{{this._id}}" hidden>
+        <input type="number" id="product-qty" name="qty" value="{{this.qty}}" min="0"/>
+        <div class="value-button" id="increase" onclick="increaseProductQty()" value="Increase Value">+</div>
+        <button type="Submit">Change Qty</button>
+      </form>
+
+
+
+
       <a href="/pantry/manage/product/details/{{this._id}}" class="btn btn-primary">Get Details</a>
       <a href="/pantry/manage/product/remove/{{this._id}}" class="btn btn-primary">Remove Product</a>
 

@@ -6,3 +6,18 @@ document.addEventListener(
   false
 );
 
+let productQty = document.getElementById('product-qty')
+
+function increaseProductQty() {
+  productQty.value++
+}
+
+function decreaseProductQty() {
+  if(productQty.value > 0) {
+    productQty.value--
+  }
+}
+
+
+
+

@@ -84,6 +84,19 @@ router.post('/pantry/create' , (req, res, next) => {
 })
 
 
+//****** HANDLE PANTRY PRODUCT QTY CHANGES ******//
+router.post('/pantry/product/qty', (req, res, next) => {
+  const {qty, productId} = req.body
+ 
+
+  Product.findByIdAndUpdate(productId, {qty:qty})
+  .then(productUpdated => {
+    res.redirect(`/pantry/manage/${productUpdated.pantryId}`)
+  })
+  .catch(err => console.log(err))
+})
+
+
 //****** HANDLE PRODUCT REMOVAL: DELETES PRODUCT AND REMOVES REFERENCE FROM PANTRY ******//
 router.get('/pantry/manage/product/remove/:id', (req, res, next) => {
   const productId = req.params.id
@@ -118,21 +131,6 @@ router.get('/pantry/delete/:id', (req, res, next) => {
   })
   .catch(err => console.log(err))
 })
-
-
-// //****** HANDLE PANTRY DELETION: DELETES PANTRY AND REMOVES REFERENCE FROM USER ******// 
-// router.get('/pantry/delete/:id', (req, res, next) => {
-//   pantryId = req.params.id
-
-//   Pantry.findByIdAndDelete(pantryId)
-//   .then(pantryRemoved => {
-//     return User.findByIdAndUpdate(pantryRemoved.owner, { $pull: { pantries: pantryRemoved._id} })
-//   })
-//   .then(() => {
-//     res.redirect('/manage')
-//   })
-//   .catch(err => console.log(err))
-// })
 
 
 module.exports = router;
