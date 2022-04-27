@@ -9,6 +9,8 @@ const Product = require('../models/Product.model');
 const ProductService = require('../services/product.service');
 const productService = new ProductService();
 
+
+
 // ****** RENDER PANTRY CREATION VIEW ****** //
 router.get('/pantry/create' , (req, res, next) => {
   res.render('pantry/pantry-create')
@@ -101,15 +103,36 @@ router.get('/pantry/manage/product/remove/:id', (req, res, next) => {
 router.get('/pantry/delete/:id', (req, res, next) => {
   pantryId = req.params.id
 
-  Pantry.findByIdAndDelete(pantryId)
-  .then(pantryRemoved => {
-    return User.findByIdAndUpdate(pantryRemoved.owner, { $pull: { pantries: pantryRemoved._id} })
-  })
-  .then(() => {
-    res.redirect('/manage')
+  Pantry.findById(pantryId)
+  .then(pantryFound => {
+    if (pantryFound.products.length === 0) {
+      Pantry.findByIdAndDelete(pantryId)
+        .then(pantryRemoved => {
+          User.findByIdAndUpdate(pantryRemoved.owner, { $pull: { pantries: pantryRemoved._id} })})
+          .then(() => {
+            res.redirect('/manage')
+          })
+    } else {
+      res.render('user/user-manage', { errorMessage: 'Cannot delete pantries which contain products.' });
+    }
   })
   .catch(err => console.log(err))
 })
+
+
+// //****** HANDLE PANTRY DELETION: DELETES PANTRY AND REMOVES REFERENCE FROM USER ******// 
+// router.get('/pantry/delete/:id', (req, res, next) => {
+//   pantryId = req.params.id
+
+//   Pantry.findByIdAndDelete(pantryId)
+//   .then(pantryRemoved => {
+//     return User.findByIdAndUpdate(pantryRemoved.owner, { $pull: { pantries: pantryRemoved._id} })
+//   })
+//   .then(() => {
+//     res.redirect('/manage')
+//   })
+//   .catch(err => console.log(err))
+// })
 
 
 module.exports = router;

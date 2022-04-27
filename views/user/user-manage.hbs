@@ -23,6 +23,10 @@
 <p>No pantries found, please create one to continue...</p>
 {{/if}}
 
+{{#if errorMessage}}
+    <p class="error">{{errorMessage}}</p>
+{{/if}}
+
 <div>
   <p>Search products to add to your pantries...</p>
   <a href='/product-list/'>Find Products</a>
