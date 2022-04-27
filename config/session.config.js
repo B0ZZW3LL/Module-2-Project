@@ -14,7 +14,7 @@ const myMiddleWareFunction = app => {
         sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
         secure: process.env.NODE_ENV === 'production',
         httpOnly: true,
-        maxAge: 600000 // <- 10 minutes
+        maxAge: 1800000 // <- 30 minutes
       }, 
       store: MongoStore.create({
         mongoUrl: process.env.MONGODB_URI || "mongodb://localhost/project-pantry-app"

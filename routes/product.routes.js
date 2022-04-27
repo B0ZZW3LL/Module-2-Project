@@ -15,6 +15,26 @@ router.get('/product-search', (req, res, next) => {
 })
 
 
+//****** RENDER PRODUCT DETAILS VIEW & POPULATE USER ALONG WITH LINKED PANTRIES******//
+router.get('/product-details/:id', (req, res, next) => {
+  const upcNumber = req.params.id
+
+  productService
+  .getOneProductUPC(upcNumber)
+  .then(productFound => {
+    let product = productFound.data
+    User.findById(req.session.currentUser._id)
+    .populate('pantries')
+    .then(userFound => {
+      let user = userFound
+      console.log(user)
+      res.render('product/product-detail', { user, product } )
+    })
+  })
+  .catch(error => console.log(error));
+})
+
+
 //***** GET ALL PRODUCTS ******//
 router.get('/product-list', (req, res, next) => {
   let currentUser = req.session.currentUser
@@ -27,7 +47,8 @@ router.get('/product-list', (req, res, next) => {
         "title": element.title,
         "category": element.category,
         "brand": element.brand,
-        "image": element.images[0]
+        "image": element.images[0],
+        "upc": element.barcode_number
       }
       return properties;
     })
@@ -49,7 +70,8 @@ router.post('/product-search-upc', (req, res, next) => {
         "title": element.title,
         "category": element.category,
         "brand": element.brand,
-        "image": element.images[0]
+        "image": element.images[0],
+        "upc": element.barcode_number
       }
       return properties;
     })
@@ -71,7 +93,8 @@ router.post('/product-search-title', (req, res, next) => {
         "title": element.title,
         "category": element.category,
         "brand": element.brand,
-        "image": element.images[0]
+        "image": element.images[0],
+        "upc": element.barcode_number
       }
       return properties;
     })
@@ -79,5 +102,8 @@ router.post('/product-search-title', (req, res, next) => {
   })
   .catch(error => console.log(error));
 })
+
+
+//***** HANDLE PRODUCT CREATE AND ADDING TO SPECIFIED PANTRY ******//
 
 module.exports = router;

@@ -1,0 +1,68 @@
+<div>
+  <form id="product-detail" action="" method="POST"></form>
+
+    {{#each product}}
+
+      <div>
+        <img src="{{this.images}}" class="card-img-top" alt="Product image">
+        <input type="text"  name="imageUrl" value="{{this.images}}" hidden>
+      </div>
+
+      <div>
+        <input type="text" name="barcode_number" value="{{this.title}}" hidden>
+      </div>
+
+      <div>
+        <p>{{this.title}}</p>
+        <input type="text" name="title" value="{{this.title}}" hidden>
+      </div>
+
+      <div>
+        <p>Brand: {{this.brand}}</p>
+        <input type="text" name="brand" value="{{this.brand}}" hidden>
+      </div>
+
+      <div>
+        <p>Size: {{this.size}}</p>
+        <input  type="text" name="size" value="{{this.size}}" hidden>
+      </div>
+
+      <div>
+        <p>Category: {{this.category}}</p>
+        <input  type="text" name="size" value="{{this.category}}" hidden>
+      </div>
+
+      <div>
+        <p>Description: {{this.description}}</p>
+        <input  type="text" name="size" value="{{this.description}}" hidden>
+      </div>
+
+      <div>
+        <p>Manufacturer: {{this.manufacturer}}</p>
+        <input  type="text" name="size" value="{{this.manufacturer}}" hidden>
+      </div>
+
+      <div>
+        <button type="Submit">Add to Pantry</button>
+      </div>
+
+      <div>   
+        <label for="add_pantry"></label>
+        <input type="number" name="qty" value="1" >
+      </div>
+
+    {{/each}}
+
+      <div>
+        <label for="">Choose Pantry</label>
+        <div>
+           <select name="pantryId">
+          <option disable selected value=""></option>
+            {{#each user.pantries}}
+          <option value="{{this._id}}"> {{this.name}} </option>
+            {{/each}}
+          </select>
+        </div>
+      </div>
+  </form>
+</div>
