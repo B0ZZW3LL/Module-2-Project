@@ -3,9 +3,14 @@
   <div class="card">
     <img src="{{this.image}}" class="card-img-top" alt="Product image">
     <div class="card-body">
+
       <p class="card-text"><b>{{this.title}}</b></p>
       <p class="card-text">{{this.brand}}</p>
+      <p class="card-text">{{this.qty}}</p>
       <a href="/pantry/manage/product/details/{{this._id}}" class="btn btn-primary">Get Details</a>
+      <a href="/pantry/manage/product/remove/{{this._id}}" class="btn btn-primary">Remove Product</a>
+      
+
     </div>
   </div>
 </div>  
