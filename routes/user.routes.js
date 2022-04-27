@@ -75,15 +75,16 @@ router.post('/signup', (req, res, next) => {
     return;
   }
 
-  // ** Hash password and create user, if success -> render login page **//
+  // ** Hash password and create user, if success -> render "user manage page" **//
   bcryptjs
   .hash(password, 10)
   .then(hashedPassword => {
-    return User.create({ displayName, email, password: hashedPassword });
-  })
-  .then(userCreated => {
-    console.log('User created:', userCreated)
-    res.render('user/user-login', { message: 'User created, please login'});
+    User.create({ displayName, email, password: hashedPassword })
+    .then(userCreated => {
+      req.session.currentUser = userCreated
+      res.redirect('/manage')
+    })
+    .catch(error => {console.log(error)
   }) 
   .catch(error => {
     console.log(error);
@@ -98,8 +99,9 @@ router.post('/signup', (req, res, next) => {
     } else {
       next();
     }
-  });
-})
+    });
+  })
+});
 
 
 //****** HANDLE USER LOGIN ******//
