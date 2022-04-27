@@ -82,15 +82,13 @@ router.post('/pantry/create' , (req, res, next) => {
 })
 
 
-//****** HANDLE PRODUCT REMOVAL: DELETES PRODUCT AND REMOVES REFERENCE WITHIN PANTRY ******//
+//****** HANDLE PRODUCT REMOVAL: DELETES PRODUCT AND REMOVES REFERENCE FROM PANTRY ******//
 router.get('/pantry/manage/product/remove/:id', (req, res, next) => {
   const productId = req.params.id
 
   Product.findByIdAndDelete(productId)
   .then(productRemoved => {
-    let productId = productRemoved._id
-    let pantryId = productRemoved.pantryId
-    return Pantry.findByIdAndUpdate(pantryId, { $pull: { products: productId}})
+    return Pantry.findByIdAndUpdate(productRemoved.pantryId, { $pull: { products: productRemoved._id } })
   })
   .then(() => {
     res.redirect(`/pantry/manage/${pantryId}`)
@@ -99,14 +97,18 @@ router.get('/pantry/manage/product/remove/:id', (req, res, next) => {
 })
 
 
-//****** HANDLE PANTRY DELETION ******//
+//****** HANDLE PANTRY DELETION: DELETES PANTRY AND REMOVES REFERENCE FROM USER ******// 
 router.get('/pantry/delete/:id', (req, res, next) => {
   pantryId = req.params.id
 
   Pantry.findByIdAndDelete(pantryId)
-  .then(pantryRemove => {
-    res.redirect('/manage'); 
+  .then(pantryRemoved => {
+    return User.findByIdAndUpdate(pantryRemoved.owner, { $pull: { pantries: pantryRemoved._id} })
   })
+  .then(() => {
+    res.redirect('/manage')
+  })
+  .catch(err => console.log(err))
 })
 
 
