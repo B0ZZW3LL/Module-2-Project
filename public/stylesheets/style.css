@@ -3,17 +3,99 @@
 body {
   padding: 0;
   margin: 0;
-  font: 14px 'Lucida Grande', Helvetica, Arial, sans-serif;
   font-family: 'Poppins', sans-serif
 }
 
-form {
+/* form {
   margin: auto;
   width: 380px;
+} */
+
+.user-form {
+  margin: auto;
+  width: 400px;
+  padding-top: 20px;
+  color: rgba(26, 6, 6, 0.877);
+}
+
+.inner-user-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.inner-user-form button {
+  width: 300px;
+  border-radius: 5px;
+  color: white;
+  font-size: 18px;
+}
+
+.user-form input {
+  width: 350px;
+  border-radius: 5px;
+  border: none;
+  height: 2.5rem;
+}
+
+.user-form-border {
+  border-radius: 40px;
+  margin: auto;
+  width: 500px;
+  background-color: rgba(245, 202, 250, 0.46);
+}
+
+#signup-button {
+  background-color: #4e14e090;
+}
+
+#login-button {
+  background-color: #2d3e15ab;
+}
+
+#signup-button:hover {
+  background: rgba(27, 3, 3, 0.795);
+  color: #43a3e6;
+  transition: 0.3s ease background;
+}
+
+#login-button:hover {
+  background: rgb(27, 3, 3);
+  color: #43a3e6;
+  transition: 0.3s ease background;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+form input, form button {
+  font-size: 14px;
+  outline: 0;
+  padding: 4px;
+  width: 100%;
+  margin-bottom: 20px;
 }
 
 form label {
-  color: #666;
+  color: rgb(37, 13, 13);
   display: inline-block;
   margin-bottom: 10px;
   text-align: center;
@@ -21,7 +103,6 @@ form label {
 }
 
 form input, form button {
-  box-sizing: border-box;
   font-size: 14px;
   outline: 0;
   padding: 4px;
