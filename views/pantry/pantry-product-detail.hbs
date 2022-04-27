@@ -1,0 +1,50 @@
+<h1>Pantry Product Details View</h1>
+
+<div>
+  <form id="pantry-product-detail" action="/pantry/manage/{{product.pantryId}}" method="GET">
+
+      <div>
+        <img src="{{product.image}}" class="card-img-top" alt="Product image">
+        <input type="text"  name="image" value="{{product.image}}" hidden>
+      </div>
+
+      <div>
+        <input type="text" name="barcode_number" value="{{product.barcode_number}}" hidden>
+      </div>
+
+      <div>
+        <p>{{product.title}}</p>
+        <input type="text" name="title" value="{{product.title}}" hidden>
+      </div>
+
+      <div>
+        <p>Brand: {{product.brand}}</p>
+        <input type="text" name="brand" value="{{product.brand}}" hidden>
+      </div>
+
+      <div>
+        <p>Size: {{product.size}}</p>
+        <input  type="text" name="size" value="{{product.size}}" hidden>
+      </div>
+
+      <div>
+        <p>Category: {{product.category}}</p>
+        <input  type="text" name="category" value="{{product.category}}" hidden>
+      </div>
+
+      <div>
+        <p>Description: {{product.description}}</p>
+        <input  type="text" name="description" value="{{product.description}}" hidden>
+      </div>
+
+      <div>
+        <p>Manufacturer: {{product.manufacturer}}</p>
+        <input  type="text" name="manufacturer" value="{{product.manufacturer}}" hidden>
+      </div>
+
+      <div>
+        <button type="Submit">Back</button>
+      </div>
+
+  </form>
+</div>

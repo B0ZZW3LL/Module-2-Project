@@ -1,15 +1,15 @@
 <div>
-  <form id="product-detail" action="" method="POST"></form>
+  <form id="product-detail" action="/product-create" method="POST">
 
     {{#each product}}
 
       <div>
         <img src="{{this.images}}" class="card-img-top" alt="Product image">
-        <input type="text"  name="imageUrl" value="{{this.images}}" hidden>
+        <input type="text"  name="image" value="{{this.images}}" hidden>
       </div>
 
       <div>
-        <input type="text" name="barcode_number" value="{{this.title}}" hidden>
+        <input type="text" name="barcode_number" value="{{this.barcode_number}}" hidden>
       </div>
 
       <div>
@@ -29,26 +29,22 @@
 
       <div>
         <p>Category: {{this.category}}</p>
-        <input  type="text" name="size" value="{{this.category}}" hidden>
+        <input  type="text" name="category" value="{{this.category}}" hidden>
       </div>
 
       <div>
         <p>Description: {{this.description}}</p>
-        <input  type="text" name="size" value="{{this.description}}" hidden>
+        <input  type="text" name="description" value="{{this.description}}" hidden>
       </div>
 
       <div>
         <p>Manufacturer: {{this.manufacturer}}</p>
-        <input  type="text" name="size" value="{{this.manufacturer}}" hidden>
-      </div>
-
-      <div>
-        <button type="Submit">Add to Pantry</button>
+        <input  type="text" name="manufacturer" value="{{this.manufacturer}}" hidden>
       </div>
 
       <div>   
         <label for="add_pantry"></label>
-        <input type="number" name="qty" value="1" >
+        <input type="number" name="qty" value="1" min="1" >
       </div>
 
     {{/each}}
@@ -64,5 +60,10 @@
           </select>
         </div>
       </div>
+
+      <div>
+        <button type="Submit">Add to Pantry</button>
+      </div>
+
   </form>
 </div>

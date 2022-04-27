@@ -4,7 +4,10 @@ const mongoose = require('mongoose');
 
 const User = require('../models/User.model');
 const Pantry = require('../models/Pantry.model');
+const Product = require('../models/Product.model');
 
+const ProductService = require('../services/product.service');
+const productService = new ProductService();
 
 // ****** RENDER PANTRY CREATION VIEW ****** //
 router.get('/pantry/create' , (req, res, next) => {
@@ -30,12 +33,26 @@ router.get('/pantry/manage/:id' , (req, res, next) => {
   pantryId = req.params.id
 
   Pantry.findById(pantryId)
+  .populate('products')
   .then(pantryFound => {
-    res.render('pantry/pantry-manage', { pantryFound })
+    res.render('pantry/pantry-manage', { pantry:pantryFound })
   })
   .catch(err => console.log(err))
 })
 
+
+//************** RENDER PRODUCT DETAILS VIEW FROM MANAGE PANTRY *****************//
+//****** We will use the pantry product id now (versus UPC/barcode_number) ******//
+router.get('/pantry/manage/product/details/:id', (req, res, next) => {
+  const pantryProductId = req.params.id
+
+  Product.findById(pantryProductId)
+  .then(productFound => {
+    console.log(productFound)
+    res.render('pantry/pantry-product-detail', { product:productFound } )
+  })
+  .catch(error => console.log(error));
+})
 
 //****** HANDLE PANTRY NAME CHANGE ******//
 router.post('/pantry/edit/:id' , (req, res, next) => {

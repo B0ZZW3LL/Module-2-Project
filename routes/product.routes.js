@@ -4,10 +4,11 @@ const mongoose = require('mongoose');
 
 const User = require('../models/User.model');
 const Pantry = require('../models/Pantry.model');
+const Product = require('../models/Product.model');
 
 const ProductService = require('../services/product.service');
 const productService = new ProductService();
-
+ 
 
 //****** RENDER PRODUCT SEARCH VIEW ******//
 router.get('/product-search', (req, res, next) => {
@@ -17,17 +18,16 @@ router.get('/product-search', (req, res, next) => {
 
 //****** RENDER PRODUCT DETAILS VIEW & POPULATE USER ALONG WITH LINKED PANTRIES******//
 router.get('/product-details/:id', (req, res, next) => {
-  const upcNumber = req.params.id
+  const barcode_number = req.params.id
 
   productService
-  .getOneProductUPC(upcNumber)
+  .getOneProductUPC(barcode_number)
   .then(productFound => {
     let product = productFound.data
     User.findById(req.session.currentUser._id)
     .populate('pantries')
     .then(userFound => {
       let user = userFound
-      console.log(user)
       res.render('product/product-detail', { user, product } )
     })
   })
@@ -48,7 +48,7 @@ router.get('/product-list', (req, res, next) => {
         "category": element.category,
         "brand": element.brand,
         "image": element.images[0],
-        "upc": element.barcode_number
+        "barcode_number": element.barcode_number
       }
       return properties;
     })
@@ -60,10 +60,10 @@ router.get('/product-list', (req, res, next) => {
 
 //***** GET PRODUCT BY UPC ******//
 router.post('/product-search-upc', (req, res, next) => {
-  const { upcNumber } = req.body
+  const { barcode_number } = req.body
   
   productService
-  .getOneProductUPC(upcNumber)
+  .getOneProductUPC(barcode_number)
   .then(productsFound => {
     let products = productsFound.data.map(element => {
       let properties = {
@@ -71,7 +71,7 @@ router.post('/product-search-upc', (req, res, next) => {
         "category": element.category,
         "brand": element.brand,
         "image": element.images[0],
-        "upc": element.barcode_number
+        "barcode_number": element.barcode_number
       }
       return properties;
     })
@@ -94,7 +94,7 @@ router.post('/product-search-title', (req, res, next) => {
         "category": element.category,
         "brand": element.brand,
         "image": element.images[0],
-        "upc": element.barcode_number
+        "barcode_number": element.barcode_number
       }
       return properties;
     })
@@ -105,5 +105,39 @@ router.post('/product-search-title', (req, res, next) => {
 
 
 //***** HANDLE PRODUCT CREATE AND ADDING TO SPECIFIED PANTRY ******//
+router.post('/product-create', (req, res, next) => {
+  const { 
+    image, 
+    barcode_number, 
+    title, 
+    brand, 
+    size, 
+    category, 
+    description, 
+    manufacturer, 
+    qty, 
+    pantryId 
+  } = req.body
+
+  Product.create( {image, 
+    barcode_number, 
+    title, 
+    brand, 
+    size, 
+    category, 
+    description, 
+    manufacturer, 
+    qty,
+    pantryId })
+
+    .then(productCreated => {
+      return Pantry.findByIdAndUpdate(pantryId, { $push: { products: productCreated._id }})
+    })
+    .then(() => {
+      console.log('Product added to pantry')
+      res.redirect('/product-list')
+    })
+    .catch(err => console.log(err))
+})
 
 module.exports = router;

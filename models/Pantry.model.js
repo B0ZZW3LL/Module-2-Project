@@ -4,7 +4,7 @@ const pantrySchema = new Schema(
   {
     owner: { type: Schema.Types.ObjectId, ref: "User" },
     name: { type: String, trim: true, required: [true, 'Display name is required.']},
-    items: [{ type: Schema.Types.ObjectId, ref: "Item" }]
+    products: [{ type: Schema.Types.ObjectId, ref: "Product" }]
   },
   {
     timestamps: true

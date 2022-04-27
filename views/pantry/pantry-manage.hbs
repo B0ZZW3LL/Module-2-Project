@@ -1,4 +1,15 @@
-<h1>Managing Pantry: {{pantryFound.name}}</h1>
+<h1><u><b>Managing Pantry:</b></u>  <i>{{pantry.name}}</i></h1>
 
 <h2>Product List</h2>
+
+{{#if pantry.products}}
+<div class="container">
+  <div class="row">
+    {{#each pantry.products}}
+       {{> pantryProductCard}}
+    {{/each}}
+  </div>
+</div>
+{{/if}}
+
 
