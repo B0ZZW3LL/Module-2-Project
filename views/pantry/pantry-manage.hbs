@@ -1,6 +1,7 @@
-<h1><u><b>Managing Pantry:</b></u>  <i>{{pantry.name}}</i></h1>
+<div id="manage-pantry-header">
+  <h1><u><b>Manage</u>:</b><i>  {{pantry.name}}</i></h1>
+</div>
 
-<h2>Product List</h2>
 
 {{#if pantry.products}}
 <div class="container">
@@ -10,6 +11,8 @@
     {{/each}}
   </div>
 </div>
+{{else}}
+<p id="manage-pantry-message">Pantry doesn't currently contain any products...</p>
 {{/if}}
 
 

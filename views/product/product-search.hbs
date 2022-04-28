@@ -1,16 +1,21 @@
-<h1>Product Search Page</h1>
 
-<a href="/product-list">Show All Products</a>
+<div id="product-search">
+  {{!-- <a class="standard-button" href="/product-list">Show All Products</a> --}}
 
-<form action="/product-search-upc" method="POST">
-<input type="text" name="barcode_number" placeholder="UPC Code" >
-<button type="Submit">Search UPC</button>
-</form>
+  <form action="/product-list" method="GET">
+  <button class="standard-button" type="Submit">Show All Products</button>
+  </form>
 
-<form action="/product-search-title" method="POST">
-<input type="text" name="title" placeholder="Product Name" >
-<button type="Submit">Search Name</button>
-</form>
+  <form action="/product-search-upc" method="POST">
+  <button class="standard-button" type="Submit">Search UPC</button>
+  <input type="text" name="barcode_number" placeholder="UPC Code" >
+  </form>
+
+  <form action="/product-search-title" method="POST">
+  <button class="standard-button" type="Submit">Search Name</button>
+  <input type="text" name="title" placeholder="Product Name" >
+  </form>
+</div>
 
 {{#if products}}
 <div class="container">

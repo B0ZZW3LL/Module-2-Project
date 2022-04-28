@@ -247,9 +247,9 @@ hr {
   text-align: center;
 }
 
-.container {
+/* .container {
   margin-left: 90px;
-}
+} */
 
 #change-pantry-h2 {
   text-align: center;
@@ -304,6 +304,111 @@ hr {
   text-decoration: none;
 }
 
+#manage-pantry-header {
+  margin-left: 105px;
+  margin-bottom: 50px;
+}
+
+#manage-pantry-message {
+  margin-left: 105px;
+  background-color: yellow;
+  border-radius: 10px;
+  width: 400px;
+  padding: 5px;
+  box-shadow: 0 .5rem .5rem rgba(0, 0, 0, 0.541);
+}
+
+.card {
+  min-height: 400px;
+  max-height:fit-content;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #43a2e62a;
+  border: none;
+  box-shadow: 0 .5rem 1rem rgba(0, 0, 0, 0.428);
+  font-size: 14px;
+}
+
+.card-img-top {
+  max-width: 200px;
+  max-height: 250px;
+  margin-top: 10px;
+  border-radius: 5px;
+}
+
+.card-body{
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.card-text {
+  margin: 4px;
+  text-align: center;
+}
+
+#product-qty {
+  width: 50px;
+}
+
+#qty-form {
+  margin: 10px 5px 10px 5px;
+  text-align: center;
+}
+
+#qty-form input {
+  border-radius: 5px;
+  border: none;
+  margin-right: 5px;
+}
+
+#pantry-product-buttons {
+  margin-top: 15px;
+  text-align: center;
+}
+
+.pantry-product-button {
+  background-color: #7c41e9ab;
+  font-size: 14px;
+  border: 1px solid rgba(0, 0, 0, 0.541);
+  box-shadow: 0 .5rem .5rem rgba(0, 0, 0, 0.541);
+  padding: 3px;
+  color: white;
+  border-radius: 5px;
+}
+
+.pantry-product-button:hover {
+  background: rgb(27, 3, 3);
+  transition: 0.3s ease background;
+  color: white;
+  padding: 4px;
+  text-decoration: none;
+}
+
+#product-search {
+  margin: 10px 100px 30px;
+  padding: 10px;
+  background-color: rgba(51, 51, 51, 0.439);
+  box-shadow: 0 .5rem 1rem rgba(0, 0, 0, 0.541);
+  border-radius: 10px;
+}
+
+#product-search input {
+  border-radius: 10px;
+  margin-left: 10px;
+  width: 300px;
+  border: none;
+  padding-left: 10px;
+}
+
+#product-search .standard-button {
+  padding: 0;
+  margin-bottom: 5px;
+  width: 200px;
+}
 
 
 
@@ -331,6 +436,8 @@ hr {
 
 
 
+
+ 
 
 
 
@@ -370,11 +477,11 @@ hr {
   width: 100%;
 } */
 
-form button:hover {
+/* form button:hover {
   background: rgba(27, 3, 3, 0.795);
   color: #43a3e6;
   transition: 0.3s ease background;
-}
+} */
 
 
 
@@ -404,10 +511,10 @@ ul li {
   font-size: 1.5em;
 } */
  
-#form h2 {
+/* #form h2 {
   display: flex;
   justify-content: center;
-}
+} */
  
 /* #to-left {
   float: left;
@@ -419,28 +526,33 @@ ul li {
   font-size: 2em;
 } */
  
-#logout-form {
+/* #logout-form {
   display: inline;
 }
  
 #logout-form button {
   width: 120px;
-}
+} */
 
-.card {
-  min-height: 450px;
-  max-height: 200px;
+/* .card {
+  min-height: 400px;
+  max-height: 400px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .card-img-top {
   max-width: 200px;
-  max-height: 253px;
-}
+  max-height: 250px;
+  padding-top: 15px;
+ 
+} */
 
-#product-title {
+/* #product-title {
   text-decoration: none;
   border: none;
-}
+} */
 
 /* .pantry-card {
   border: solid 1px blue;
@@ -448,7 +560,7 @@ ul li {
   margin: 1rem;
 } */
 
-.value-button {
+/* .value-button {
   display: inline-block;
   border: 1px solid #ddd;
   margin: 0px;
@@ -465,8 +577,8 @@ ul li {
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
-}
-
+} */
+/* 
 .value-button:hover {
   cursor: pointer;
 }
@@ -478,10 +590,10 @@ form #decrease {
 
 form #increase {
   margin-left: -4px;
-  border-radius: 0 8px 8px 0;
+  border-radius: 0 8px 8px 0; */
 }
 
-form #input-wrap {
+/* form #input-wrap {
   margin: 0px;
   padding: 0px;
 }
@@ -494,7 +606,7 @@ input#number {
   margin: 0px;
   width: 40px;
   height: 40px;
-}
+} */ 
 
 
 
