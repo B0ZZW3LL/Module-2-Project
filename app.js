@@ -11,6 +11,8 @@ hbs.registerPartials(__dirname + "/views/partials");
 require('./config/session.config')(app);
 require("./config")(app);
 
+// **** (Req, res, next function) check current user... app.local info to set current user) ***
+// ** I.E every request will check to see if user is signed in ** //
 
 // **** HANDLING ROUTES HERE **** //
 const index = require("./routes/index.routes");

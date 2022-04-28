@@ -1,26 +1,28 @@
-<h1>User Edit Form</h1>
+<div class="user-form-border">
 
-<div id="form">
+  <div>
+  <form class="user-form" action="/edit/{{user._id}}" method="POST">
 
   <h2>Edit Profile</h2>
 
-  <form action="/edit/{{user._id}}" method="POST">
-  <div>
-    <label for="displayName">Display Name: </label>
-    <input id="displayName" type="text" name="displayName" value="{{user.displayName}}" >
+  <div class="inner-user-form">
+    <div id="profile-inner">
+      <label for="displayName">Display Name: </label>
+      <input id="displayName" type="text" name="displayName" value="{{user.displayName}}" >
+    </div>
+
+    {{!-- <div>
+      <label for="email">Email: </label>
+      <input id="email" type="text" name="email" value="{{user.email}}">
+    </div> --}}
+
+    <button class="standard-button" type="submit">Submit</button>
+
+    {{!-- {{#if errorMessage}}
+    <p class="error">{{errorMessage}}</p>
+    {{/if}} --}}
+
   </div>
 
-  {{!-- <div>
-    <label for="email">Email: </label>
-    <input id="email" type="text" name="email" value="{{user.email}}">
-  </div> --}}
-
-  <button type="submit">Submit</button>
-
-   {{#if errorMessage}}
-    <p class="error">{{errorMessage}}</p>
-  {{/if}}
-
   </form>
-  
 </div>

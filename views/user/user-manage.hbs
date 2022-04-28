@@ -1,15 +1,16 @@
-<h1>User Manage page</h1>
-
-<div>
-  <h2>Welcome, {{currentUser.displayName}}</h2>
+<div id="user-welcome">
+  <h1><b> Welcome,</b> <i>{{currentUser.displayName}}</i></h1>
   <a href="/edit/{{currentUser._id}}">Edit Profile</a>
 </div>
 
+<hr>
+
 <br>
 
-<div>
-  <a href="/pantry/create">Create a Pantry</a>
+<div id="create-pantry-button">
+  <a class="standard-button" href="/pantry/create">Create a Pantry</a>
 </div>
+
 
 {{#if pantry}}
 <div class="container">
@@ -27,8 +28,10 @@
     <p class="error">{{errorMessage}}</p>
 {{/if}}
 
-<div>
+<hr>
+
+<div id="search-products">
   <p>Search products to add to your pantries...</p>
-  <a href='/product-list/'>Find Products</a>
+  <a class="standard-button" id="find-products-button" href='/product-list/'>Find Products</a>
 </div>
 

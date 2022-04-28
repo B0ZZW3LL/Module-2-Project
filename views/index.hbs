@@ -3,22 +3,22 @@
   <div>
     <form class="user-form" action="/signup" method="POST">
 
-      <h2>Signup</h2>
+      <h2 id="signup-title">Signup</h2>
 
       <div class="inner-user-form">
         <div>
           {{!-- <label for="displayName">Display Name: </label> --}}
-          <input id="displayName" type="text" name="displayName" placeholder="JohnDoe2022" >
+          <input id="displayName" type="text" name="displayName" placeholder="Display Name i.e.. IronHacker22" >
         </div>
 
         <div>
           {{!-- <label for="email">Email: </label> --}}
-          <input id="email" type="text" name="email" placeholder="Your email here">
+          <input id="email" type="text" name="email" placeholder="Email">
         </div>
 
         <div>
           {{!-- <label for="password">Password: </label> --}}
-          <input id="password" type="password" name="password" placeholder="password">
+          <input id="password" type="password" name="password" placeholder="Password">
         </div>
 
         <div>
@@ -29,8 +29,12 @@
         <button id="signup-button" type="submit">Signup</button>
       </div>
 
+      <hr>
+
     </form>
   </div>
+
+ 
 
   <div>
     <form class="user-form" action="/login" method="GET">
