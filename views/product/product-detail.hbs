@@ -1,69 +1,74 @@
-<div>
+
+<div class="card" id="product-detail-card">
   <form id="product-detail" action="/product-create" method="POST">
 
     {{#each product}}
 
-      <div>
-        <img src="{{this.images}}" class="card-img-top" alt="Product image">
-        <input type="text"  name="image" value="{{this.images}}" hidden>
-      </div>
+    <div id="product-detail-image">
+      <img src="{{this.images}}" class="product-card-img-top" alt="Product image">
+      <input type="text"  name="image" value="{{this.images}}" hidden>
+    </div>
+
+    <div class="product-card-body">
 
       <div>
         <input type="text" name="barcode_number" value="{{this.barcode_number}}" hidden>
       </div>
 
       <div>
-        <p>{{this.title}}</p>
+        <p id="product-title">{{this.title}}</p>
         <input type="text" name="title" value="{{this.title}}" hidden>
       </div>
 
       <div>
-        <p>Brand: {{this.brand}}</p>
+        <p><b>Brand:</b> {{this.brand}}</p>
         <input type="text" name="brand" value="{{this.brand}}" hidden>
       </div>
 
       <div>
-        <p>Size: {{this.size}}</p>
+        <p><b>Size:</b> {{this.size}}</p>
         <input  type="text" name="size" value="{{this.size}}" hidden>
       </div>
 
       <div>
-        <p>Category: {{this.category}}</p>
+        <p><b>Category:</b> {{this.category}}</p>
         <input  type="text" name="category" value="{{this.category}}" hidden>
       </div>
 
       <div>
-        <p>Description: {{this.description}}</p>
+        <p><b>Description:</b> {{this.description}}</p>
         <input  type="text" name="description" value="{{this.description}}" hidden>
       </div>
 
       <div>
-        <p>Manufacturer: {{this.manufacturer}}</p>
+        <p><b>Manufacturer:</b> {{this.manufacturer}}</p>
         <input  type="text" name="manufacturer" value="{{this.manufacturer}}" hidden>
       </div>
 
-      <div>   
-        <label for="add_pantry"></label>
-        <input type="number" name="qty" value="1" min="1" >
-      </div>
+      <div id="pantry-add">
 
-    {{/each}}
+        <div id="qty-selection">
+          <label id="qty-label" for="add_pantry"><b>Qty</b></label>
+          <input type="number" name="qty" value="1" min="1" >
+        </div>
 
-      <div>
-        <label for="">Choose Pantry</label>
-        <div>
-           <select name="pantryId">
-          <option disable selected value=""></option>
-            {{#each user.pantries}}
-          <option value="{{this._id}}"> {{this.name}} </option>
-            {{/each}}
-          </select>
+        {{/each}}
+
+        <div id="add-pantry">
+          <div>
+            <button class="pantry-product-button" type="Submit">Add to Pantry</button>
+            <select name="pantryId">
+            <option disable selected value=""></option>
+              {{#each user.pantries}}
+            <option id="add-pantry-option" value="{{this._id}}"> {{this.name}} </option>
+              {{/each}}
+            </select>
+            {{!-- <button type="Submit">Add to Pantry</button> --}}
+          </div>
+          {{!-- <button type="Submit">Add to Pantry</button> --}}
         </div>
       </div>
-
-      <div>
-        <button type="Submit">Add to Pantry</button>
-      </div>
-
+    </div>
   </form>
 </div>
+
