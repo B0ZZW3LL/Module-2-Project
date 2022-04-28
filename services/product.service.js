@@ -3,7 +3,7 @@ const axios = require('axios');
 class ProductService {
   constructor() {
     this.api = axios.create({
-      baseURL: 'http://localhost:8000'
+      baseURL: process.env.API_URL
     });
   }
  
