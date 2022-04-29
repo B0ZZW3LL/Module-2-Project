@@ -2,11 +2,15 @@ const router = require("express").Router();
 const bcryptjs = require('bcryptjs');
 const mongoose = require('mongoose');
 
+const { isLoggedIn } = require('../middleware/route.gaurd');
+
 const User = require('../models/User.model');
 const Pantry = require('../models/Pantry.model');
 
+
+
 //****** RENDER USER MANAGE VIEW ******//
-router.get('/manage', (req, res, next) => {
+router.get('/manage', isLoggedIn, (req, res, next) => {
 
   Pantry.find( {owner: req.app.locals.currentUser._id } ) 
   .then(pantriesFound => {
@@ -23,7 +27,7 @@ router.get('/login', (req, res, next) => {
 
 
 //****** RENDER USER/PROFILE EDIT VIEW ******//
-router.get('/edit/:id', (req, res, next) => {
+router.get('/edit/:id', isLoggedIn, (req, res, next) => {
   userId = req.params.id
 
   User.findById(userId)
@@ -35,7 +39,7 @@ router.get('/edit/:id', (req, res, next) => {
 
 
 //****** HANDLE USER/PROFILE UPDATES ******//
-router.post('/edit/:id', (req, res, next) => {
+router.post('/edit/:id', isLoggedIn, (req, res, next) => {
   const { displayName, email } = req.body
   userId = req.params.id
 
@@ -144,7 +148,7 @@ router.post('/login', (req, res, next) => {
 
 
 //****** HANDLE USER LOGOUT ******//
-router.get('/logout', (req, res, next) => {
+router.get('/logout', isLoggedIn, (req, res, next) => {
   req.session.destroy(err => {
     if (err) next(err);
     res.redirect('/');

@@ -6,19 +6,21 @@ const User = require('../models/User.model');
 const Pantry = require('../models/Pantry.model');
 const Product = require('../models/Product.model');
 
+const { isLoggedIn } = require('../middleware/route.gaurd');
+
 const ProductService = require('../services/product.service');
 const productService = new ProductService();
 
 
 
 // ****** RENDER PANTRY CREATION VIEW ****** //
-router.get('/pantry/create' , (req, res, next) => {
+router.get('/pantry/create', isLoggedIn, (req, res, next) => {
   res.render('pantry/pantry-create')
 })
 
 
 //****** RENDER PANTRY NAME CHANGE VIEW ******//
-router.get('/pantry/edit/:id' , (req, res, next) => {
+router.get('/pantry/edit/:id', isLoggedIn, (req, res, next) => {
   pantryId = req.params.id
 
   Pantry.findById(pantryId)
@@ -31,7 +33,7 @@ router.get('/pantry/edit/:id' , (req, res, next) => {
 
 
 //****** RENDER MANAGE PANTRY VIEW ******//
-router.get('/pantry/manage/:id' , (req, res, next) => {
+router.get('/pantry/manage/:id', isLoggedIn, (req, res, next) => {
   pantryId = req.params.id
 
   Pantry.findById(pantryId)
@@ -45,7 +47,7 @@ router.get('/pantry/manage/:id' , (req, res, next) => {
 
 //************** RENDER PRODUCT DETAILS VIEW FROM MANAGE PANTRY *****************//
 //****** We will use the pantry product id now (versus UPC/barcode_number) ******//
-router.get('/pantry/manage/product/details/:id', (req, res, next) => {
+router.get('/pantry/manage/product/details/:id', isLoggedIn, (req, res, next) => {
   const pantryProductId = req.params.id
 
   Product.findById(pantryProductId)
@@ -57,7 +59,7 @@ router.get('/pantry/manage/product/details/:id', (req, res, next) => {
 })
 
 //****** HANDLE PANTRY NAME CHANGE ******//
-router.post('/pantry/edit/:id' , (req, res, next) => {
+router.post('/pantry/edit/:id', isLoggedIn, (req, res, next) => {
   pantryId = req.params.id
   const { name } = req.body
 
@@ -70,7 +72,7 @@ router.post('/pantry/edit/:id' , (req, res, next) => {
 
 
 //****** HANDLE PANTRY CREATION THEN APPEND CREATED PANTRY TO USER  ******//
-router.post('/pantry/create' , (req, res, next) => {
+router.post('/pantry/create', isLoggedIn, (req, res, next) => {
   const {name} = req.body
   let owner = (req.session.currentUser._id)
 
@@ -85,7 +87,7 @@ router.post('/pantry/create' , (req, res, next) => {
 
 
 //****** HANDLE PANTRY PRODUCT QTY CHANGES ******//
-router.post('/pantry/product/qty', (req, res, next) => {
+router.post('/pantry/product/qty', isLoggedIn, (req, res, next) => {
   const {qty, productId} = req.body
  
 
@@ -98,7 +100,7 @@ router.post('/pantry/product/qty', (req, res, next) => {
 
 
 //****** HANDLE PRODUCT REMOVAL: DELETES PRODUCT AND REMOVES REFERENCE FROM PANTRY ******//
-router.get('/pantry/manage/product/remove/:id', (req, res, next) => {
+router.get('/pantry/manage/product/remove/:id', isLoggedIn, (req, res, next) => {
   const productId = req.params.id
 
   Product.findByIdAndDelete(productId)
@@ -114,7 +116,7 @@ router.get('/pantry/manage/product/remove/:id', (req, res, next) => {
 
 
 //****** HANDLE PANTRY DELETION: DELETES PANTRY AND REMOVES REFERENCE FROM USER ******// 
-router.get('/pantry/delete/:id', (req, res, next) => {
+router.get('/pantry/delete/:id', isLoggedIn, (req, res, next) => {
   pantryId = req.params.id
 
   Pantry.findById(pantryId)

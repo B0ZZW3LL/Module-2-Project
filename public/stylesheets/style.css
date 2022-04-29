@@ -5,10 +5,13 @@ body {
   /* margin: 0px 30px 0px 30px; */
 }
 
-/* form {
-  margin: auto;
-  width: 380px;
-} */
+#site-title {
+  text-shadow: 8px 8px 8px rgba(0, 0, 255, 0.794);
+  text-align: center;
+  font-size: 64px;
+  margin-top: 40px;
+  color: rgba(0, 0, 0, 0.734);
+}
 
 .user-form-border {
   border-radius: 40px;
@@ -128,7 +131,7 @@ nav {
 }
 
 nav h5 {
-  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.541);
+  text-shadow: 2px 2px 5px rgba(0, 0, 255, 0.557);
 }
 
 nav ul {

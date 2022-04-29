@@ -6,18 +6,21 @@ const User = require('../models/User.model');
 const Pantry = require('../models/Pantry.model');
 const Product = require('../models/Product.model');
 
+const { isLoggedIn } = require('../middleware/route.gaurd');
+
 const ProductService = require('../services/product.service');
 const productService = new ProductService();
+
  
 
 //****** RENDER PRODUCT SEARCH VIEW ******//
-router.get('/product-search', (req, res, next) => {
+router.get('/product-search', isLoggedIn,  (req, res, next) => {
   res.render('product/product-search')
 })
 
 
 //****** RENDER PRODUCT DETAILS VIEW & POPULATE USER ALONG WITH LINKED PANTRIES******//
-router.get('/product-details/:id', (req, res, next) => {
+router.get('/product-details/:id', isLoggedIn,  (req, res, next) => {
   const barcode_number = req.params.id
 
   productService
@@ -36,7 +39,7 @@ router.get('/product-details/:id', (req, res, next) => {
 
 
 //***** GET ALL PRODUCTS ******//
-router.get('/product-list', (req, res, next) => {
+router.get('/product-list', isLoggedIn,  (req, res, next) => {
   let currentUser = req.session.currentUser
 
   productService
@@ -59,7 +62,7 @@ router.get('/product-list', (req, res, next) => {
 
 
 //***** GET PRODUCT BY UPC ******//
-router.post('/product-search-upc', (req, res, next) => {
+router.post('/product-search-upc', isLoggedIn,  (req, res, next) => {
   const { barcode_number } = req.body
   
   productService
@@ -82,7 +85,7 @@ router.post('/product-search-upc', (req, res, next) => {
 
 
 //***** GET PRODUCTs BY NAME/TITLE SEARCH ******//
-router.post('/product-search-title', (req, res, next) => {
+router.post('/product-search-title', isLoggedIn,  (req, res, next) => {
   const searchTerm = req.body.title
 
   productService
@@ -105,7 +108,7 @@ router.post('/product-search-title', (req, res, next) => {
 
 
 //***** HANDLE PRODUCT CREATE AND ADDING TO SPECIFIED PANTRY ******//
-router.post('/product-create', (req, res, next) => {
+router.post('/product-create', isLoggedIn, (req, res, next) => {
   const { 
     image, 
     barcode_number, 
