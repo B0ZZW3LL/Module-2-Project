@@ -102,13 +102,14 @@ router.get('/pantry/manage/product/remove/:id', (req, res, next) => {
   const productId = req.params.id
 
   Product.findByIdAndDelete(productId)
-  .then(productRemoved => {
-    return Pantry.findByIdAndUpdate(productRemoved.pantryId, { $pull: { products: productRemoved._id } })
-  })
-  .then(() => {
-    res.redirect(`/pantry/manage/${pantryId}`)
-  })
-  .catch(err => console.log(err))
+    .then(productRemoved => {
+      // ** without the 'return', it will not actually remove product reference from pantry ** //
+      return Pantry.findByIdAndUpdate(productRemoved.pantryId, { $pull: { products: productRemoved._id } })
+    })
+    .then(() => {
+      res.redirect(`/pantry/manage/${pantryId}`)
+    })
+    .catch(err => console.log(err))
 })
 
 
@@ -121,10 +122,12 @@ router.get('/pantry/delete/:id', (req, res, next) => {
     if (pantryFound.products.length === 0) {
       Pantry.findByIdAndDelete(pantryId)
         .then(pantryRemoved => {
-          User.findByIdAndUpdate(pantryRemoved.owner, { $pull: { pantries: pantryRemoved._id} })})
-          .then(() => {
-            res.redirect('/manage')
-          })
+          // ** without the 'return', it will not actually remove the pantry reference from user?!? ** //
+          return User.findByIdAndUpdate(pantryRemoved.owner, { $pull: { pantries: pantryRemoved._id} })
+        })
+        .then(() => {
+          res.redirect('/manage')
+        })
     } else {
       res.render('user/user-manage', { errorMessage: 'Cannot delete pantries which contain products.' });
     }

@@ -5,14 +5,12 @@ const mongoose = require('mongoose');
 const User = require('../models/User.model');
 const Pantry = require('../models/Pantry.model');
 
-
 //****** RENDER USER MANAGE VIEW ******//
 router.get('/manage', (req, res, next) => {
-  let currentUser = req.session.currentUser
-  
-  Pantry.find({owner: currentUser._id})
+
+  Pantry.find( {owner: req.app.locals.currentUser._id } ) 
   .then(pantriesFound => {
-    res.render('user/user-manage', { currentUser, pantry:pantriesFound })
+    res.render('user/user-manage', { pantry:pantriesFound })
   })
   .catch(err => console.log(err))
 })
@@ -44,9 +42,32 @@ router.post('/edit/:id', (req, res, next) => {
   User.findByIdAndUpdate(userId, {displayName}, {returnOriginal: false})
   .then(userUpdated => {
     req.session.currentUser.displayName = userUpdated.displayName
+  })
+  .then(() => {
     res.redirect('/manage')
   })
   .catch(err => console.log(err))
+
+  //  ATTEMPT AT HANDLING PROVIDING BLANK
+  // if (displayName === '') {
+  //   res.render('user/user-edit', { errorMessage: 'Must provide a Display Name' })
+  // } else {
+  //   User.findByIdAndUpdate(userId, {displayName}, {returnOriginal: false})
+  //   .then(userUpdated => {
+  //     req.session.currentUser.displayName = userUpdated.displayName
+  //   })
+  //   .then(() => {
+  //     res.redirect('/manage')
+  //   })
+  //   .catch(err => console.log(err))
+  // }
+
+  // User.findByIdAndUpdate(userId, {displayName}, {returnOriginal: false})
+  // .then(userUpdated => {
+  //   req.session.currentUser.displayName = userUpdated.displayName
+  //   res.redirect('/manage')
+  // })
+  // .catch(err => console.log(err))
 })
 
 
@@ -57,13 +78,13 @@ router.post('/signup', (req, res, next) => {
 
   // ** Ensure all fields have been provided ** //
   if (!displayName || !email || !password || !confirmPassword) {
-    res.render('user/user-signup', { errorMessage: 'All fields are mandatory. Please provide your username, email and password.' });
+    res.render('index', { errorMessage: 'All fields are mandatory. Please provide your username, email and password.' });
     return;
   }
 
   // ** Ensure password fields match ** //
   if (!(password === confirmPassword)) {
-    res.render('user/user-signup', { errorMessage: 'Passwords provided must match.' });
+    res.render('index', { errorMessage: 'Passwords provided must match.' });
     return;
   }
 
@@ -71,7 +92,7 @@ router.post('/signup', (req, res, next) => {
   if (!regex.test(password)) {
     res
       .status(500)
-      .render('user/user-signup', { errorMessage: 'Password needs to have at least 6 chars and must contain at least one number, one lowercase and one uppercase letter.' });
+      .render('index', { errorMessage: 'Password needs to have at least 6 chars and must contain at least one number, one lowercase and one uppercase letter.' });
     return;
   }
 
@@ -80,27 +101,20 @@ router.post('/signup', (req, res, next) => {
   .hash(password, 10)
   .then(hashedPassword => {
     User.create({ displayName, email, password: hashedPassword })
-    .then(userCreated => {
-      req.session.currentUser = userCreated
-      res.redirect('/manage')
-    })
-    .catch(error => {console.log(error)
+    .then(userCreated => { req.session.currentUser = userCreated })
+    .then(() => {res.redirect('/manage')})
+    .catch(error => {
+      // ** If user creation failed, handle mongoDB valiation errors ** //
+      if (error instanceof mongoose.Error.ValidationError) {
+        res.status(500).render('index', { errorMessage: error.message });
+      } else if (error.code === 11000) {
+        res.status(500).render('index', { errorMessage: 'Email is already in use.' });
+      } else {
+        next();
+      }
+      })
   }) 
-  .catch(error => {
-    console.log(error);
-
-    // ** If user creation failed, handle mongoDB valiation errors ** //
-    if (error instanceof mongoose.Error.ValidationError) {
-      res.status(500).render('user/user-signup.hbs', { errorMessage: error.message });
-    } else if (error.code === 11000) {
-      res.status(500).render('user/user-signup.hbs', {
-         errorMessage: 'Email is already in use.'
-      });
-    } else {
-      next();
-    }
-    });
-  })
+  .catch(error => {console.log(error)}); 
 });
 
 
@@ -136,7 +150,6 @@ router.get('/logout', (req, res, next) => {
     res.redirect('/');
   });
 });
-
 
 
 module.exports = router;

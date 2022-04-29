@@ -12,34 +12,17 @@
 </head>
 
 <body>
+  {{#if currentUser}}
   <nav>
     <h5>projectPantryApp</h5>
     <ul>
       <li>
-        {{#if currentUser}}
         <a href='/manage'>My Pantries</a>
         <a href='/logout'>Logout</a>
-        {{/if}}
       </li>
     </ul>
   </nav>
-
-  {{!-- <nav>
-     <ul>
-        <li id="to-left">
-            <h4>projectPantryApp</h4>
-        </li>
-        <li id="to-right">
-            <a id="#login-button" href='/manage'>My Pantries</a>
-            
-            {{#if currentUser}}
-            <form id="logout-form" action="/logout" method="POST">
-              <button>Logout</button>
-            </form>
-            {{/if}}
-        </li>
-      </ul>
-  </nav> --}}
+  {{/if}}
 
   {{{body}}}
 
