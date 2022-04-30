@@ -58,7 +58,6 @@ router.get('/pantry/manage/product/details/:id', isLoggedIn, (req, res, next) =>
   .catch(error => console.log(error));
 })
 
-
 //****** HANDLE PANTRY NAME CHANGE ******//
 router.post('/pantry/edit/:id', isLoggedIn, (req, res, next) => {
   pantryId = req.params.id
@@ -100,7 +99,7 @@ router.post('/pantry/product/qty', isLoggedIn, (req, res, next) => {
 })
 
 
-//****** HANDLE PRODUCT REMOVAL: DELETES PRODUCT AND REMOVE REFERENCE FROM PANTRY ******//
+//****** HANDLE PRODUCT REMOVAL: DELETES PRODUCT AND REMOVES REFERENCE FROM PANTRY ******//
 router.get('/pantry/manage/product/remove/:id', isLoggedIn, (req, res, next) => {
   const productId = req.params.id
 
@@ -116,7 +115,7 @@ router.get('/pantry/manage/product/remove/:id', isLoggedIn, (req, res, next) => 
 })
 
 
-//****** HANDLE PANTRY DELETION: DELETES PANTRY AND REMOVE REFERENCE FROM USER ******// 
+//****** HANDLE PANTRY DELETION: DELETES PANTRY AND REMOVES REFERENCE FROM USER ******// 
 router.get('/pantry/delete/:id', isLoggedIn, (req, res, next) => {
   pantryId = req.params.id
 
@@ -125,7 +124,7 @@ router.get('/pantry/delete/:id', isLoggedIn, (req, res, next) => {
     if (pantryFound.products.length === 0) {
       Pantry.findByIdAndDelete(pantryId)
         .then(pantryRemoved => {
-          // ** without the 'return', it will not actually remove the pantry reference from user?!? - lame.. ** //
+          // ** without the 'return', it will not actually remove the pantry reference from user?!? ** //
           return User.findByIdAndUpdate(pantryRemoved.owner, { $pull: { pantries: pantryRemoved._id} })
         })
         .then(() => {
