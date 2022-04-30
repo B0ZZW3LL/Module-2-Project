@@ -43,35 +43,19 @@ router.post('/edit/:id', isLoggedIn, (req, res, next) => {
   const { displayName, email } = req.body
   userId = req.params.id
 
-  User.findByIdAndUpdate(userId, {displayName}, {returnOriginal: false})
-  .then(userUpdated => {
-    req.session.currentUser.displayName = userUpdated.displayName
-  })
-  .then(() => {
-    res.redirect('/manage')
-  })
-  .catch(err => console.log(err))
+  if (displayName === '') {
+    res.render('user/user-edit', { errorMessage: 'Must provide a Display Name' })
+  } else {
+    User.findByIdAndUpdate(userId, {displayName}, {returnOriginal: false})
+    .then(userUpdated => {
+      req.session.currentUser.displayName = userUpdated.displayName
+    })
+    .then(() => {
+      res.redirect('/manage')
+    })
+    .catch(err => console.log(err))
+  }
 
-  //  ATTEMPT AT HANDLING PROVIDING BLANK
-  // if (displayName === '') {
-  //   res.render('user/user-edit', { errorMessage: 'Must provide a Display Name' })
-  // } else {
-  //   User.findByIdAndUpdate(userId, {displayName}, {returnOriginal: false})
-  //   .then(userUpdated => {
-  //     req.session.currentUser.displayName = userUpdated.displayName
-  //   })
-  //   .then(() => {
-  //     res.redirect('/manage')
-  //   })
-  //   .catch(err => console.log(err))
-  // }
-
-  // User.findByIdAndUpdate(userId, {displayName}, {returnOriginal: false})
-  // .then(userUpdated => {
-  //   req.session.currentUser.displayName = userUpdated.displayName
-  //   res.redirect('/manage')
-  // })
-  // .catch(err => console.log(err))
 })
 
 
@@ -128,7 +112,6 @@ router.post('/login', (req, res, next) => {
 
   if (email === '' || password === '') {
     res.render('user/user-login', {errorMessage: 'Please enter both, email and password to login.'});
-    return;
   }
 
   User.findOne({ email })
@@ -138,12 +121,12 @@ router.post('/login', (req, res, next) => {
         return;
       } else if (bcryptjs.compareSync(password, user.password)) { 
         req.session.currentUser = user;
-        res.redirect('/manage'); 
       } else {
         res.render('user/user-login', { errorMessage: 'Incorrect password.' });
       }
     })
-    .catch(error => next(error));
+    .then(() => { res.redirect('/manage')})
+    .catch(error => {console.log(error)}); 
 })
 
 

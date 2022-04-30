@@ -1,14 +1,14 @@
 <div class="user-form-border">
 
   <div>
-  <form class="user-form" action="/edit/{{user._id}}" method="POST">
+  <form class="user-form" action="/edit/{{currentUser._id}}" method="POST">
 
   <h2>Edit Profile</h2>
 
   <div class="inner-user-form">
     <div id="profile-inner">
       <label for="displayName">Display Name: </label>
-      <input id="displayName" type="text" name="displayName" value="{{user.displayName}}" >
+      <input id="displayName" type="text" name="displayName" value="{{currentUser.displayName}}" >
     </div>
 
     {{!-- <div>
