@@ -266,9 +266,13 @@ hr {
   width: 250px;
   text-align: center;
   padding: 5px;
-  height: 90px;
+  height: fit-content;
   background-color: rgba(51, 51, 51, 0.49);
   box-shadow: 0 .5rem .5rem rgba(0, 0, 0, 0.541);
+}
+
+.pantry-card div {
+  margin-bottom: 15px;
 }
 
 .pantry-card h3 {
@@ -428,7 +432,7 @@ hr {
 }
 
 #product-detail-card {
-  width: 400px;
+  width: 450px;
   margin-left: 110px;
   border-radius: 30px;
 }
@@ -442,6 +446,7 @@ hr {
   flex-direction: column;
   align-items: center;
   font-size: 18px;
+  text-align: center;
 }
 
 #product-detail-card p {
@@ -455,7 +460,15 @@ hr {
   border-radius: 10px;
 }
 
-.product-card-body{
+.product-detail-card-body{
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: left;
+  margin: 10px;
+}
+
+.pantry-product-detail-card-body{
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
@@ -492,6 +505,13 @@ hr {
 #add-pantry {
   text-align: center;
   margin: 10px;
+}
+
+#add-pantry select {
+ width: 150px;
+ border-radius: 5px;
+ height: 28px;
+ margin-left: 10px;
 }
 
 #pantry-add {
